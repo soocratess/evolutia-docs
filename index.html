@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evolutia — Onboarding · Las 4 patas de tu negocio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== SISTEMA DE DISEÑO — dark ambience (compartido) ===== */
+:root{
+  --negro:#030304; --negro-2:#0a0a0b; --blanco:#e9e7e2; --gris:#6e6d69;
+  --acento:#c12f2b; --acento-soft:rgba(193,47,43,.45); --linea:rgba(233,231,226,.10);
+  --serif:"Playfair Display","Didot","Georgia",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","SF Mono",ui-monospace,Menlo,monospace;
+  --ancho:680px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--negro);color:var(--blanco);font-family:var(--sans);font-weight:300;line-height:1.7;letter-spacing:.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;background:radial-gradient(ellipse at center,transparent 42%,rgba(0,0,0,.6) 100%)}
+body::after{content:"";position:fixed;inset:-50%;z-index:9999;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .6s steps(3) infinite}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-4%,2%)}66%{transform:translate(3%,-3%)}100%{transform:translate(0,0)}}
+#progreso{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--acento);z-index:10000;transition:width .1s linear;opacity:.8}
+
+section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:16vh 6vw;position:relative}
+.bloque{width:100%;max-width:var(--ancho);position:relative;z-index:1}
+.bloque.ancho{max-width:880px}
+.kicker{font-family:var(--sans);font-weight:500;font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--acento);margin-bottom:1.8rem;opacity:.85}
+.kicker.fase{font-size:.82rem;letter-spacing:.42em}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,7vw,5rem);line-height:1.05;letter-spacing:-.01em;text-shadow:0 0 60px rgba(233,231,226,.06)}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,5.2vw,3.6rem);line-height:1.14;text-shadow:0 0 50px rgba(233,231,226,.05)}
+h3{font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(1.5rem,3.6vw,2.4rem);line-height:1.25}
+p{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--gris);margin-top:1.5rem}
+p.lead{color:var(--blanco);font-weight:400}
+strong{color:var(--blanco);font-weight:600}
+em.mark{font-style:normal;color:var(--acento)}
+
+.puntos{list-style:none;margin:2.4rem auto 0;max-width:600px;text-align:left}
+.puntos li{position:relative;padding:.7rem 0 .7rem 1.8rem;color:var(--blanco);font-weight:400;font-size:clamp(1rem,1.4vw,1.13rem);border-bottom:1px solid var(--linea);line-height:1.55}
+.puntos li::before{content:"";position:absolute;left:0;top:1.25rem;width:7px;height:7px;border-radius:50%;background:var(--acento);box-shadow:0 0 12px var(--acento-soft)}
+.puntos li span{color:var(--gris)}
+
+.cifra-hero{font-family:var(--serif);font-weight:900;font-size:clamp(3rem,9vw,6rem);color:var(--acento);line-height:1;text-shadow:0 0 50px var(--acento-soft);margin-top:1rem}
+
+/* sub-etiqueta dentro de un bloque */
+.sub{font-family:var(--sans);font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);margin-top:2.6rem}
+
+/* índice */
+.indice{list-style:none;margin:2.6rem auto 0;max-width:560px;text-align:left}
+.indice li{display:flex;align-items:baseline;gap:1.2rem;padding:1rem 0;border-bottom:1px solid var(--linea)}
+.indice .num{font-family:var(--serif);font-weight:900;color:var(--acento);font-size:1.6rem;min-width:2.4rem}
+.indice .txt{color:var(--blanco);font-weight:400;font-size:clamp(1.05rem,1.6vw,1.25rem)}
+.indice .txt small{display:block;color:var(--gris);font-size:.82rem;font-weight:300;margin-top:.15rem}
+
+/* nota / matiz */
+.nota{margin:2.2rem auto 0;border-left:2px solid var(--acento-soft);padding:.4rem 0 .4rem 1.2rem;max-width:580px;text-align:left;color:var(--gris);font-size:.95rem;font-style:italic}
+.nota em{color:var(--acento);font-style:normal}
+
+/* ===== LOGOS de herramientas ===== */
+.logos{display:flex;flex-wrap:wrap;gap:.85rem;justify-content:center;margin:1.4rem auto 0;max-width:680px}
+.logo-tile{display:flex;align-items:center;gap:.7rem;border:1px solid var(--linea);border-radius:14px;padding:.82rem 1.25rem;background:rgba(255,255,255,.015);transition:border-color .3s,transform .25s,box-shadow .4s}
+.logo-tile:hover{border-color:var(--acento-soft);transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.5)}
+.logo-tile img{width:28px;height:28px;display:block;object-fit:contain;flex:none}
+.logo-tile img.app{background:#fff;border-radius:7px;padding:3px}
+.logo-tile .nm{font-size:.85rem;color:var(--blanco);font-weight:400;white-space:nowrap}
+.logos.hero .logo-tile{padding:1.05rem 1.7rem;gap:.95rem}
+.logos.hero .logo-tile img{width:40px;height:40px}
+.logos.hero .logo-tile .nm{font-size:1.05rem;font-weight:500}
+
+/* caso con foto (autoridad) */
+.caso{border:1px solid var(--linea);border-radius:16px;padding:clamp(2rem,5vw,3.2rem);background:rgba(255,255,255,.012);text-align:left;max-width:700px;margin:2.6rem auto 0;transition:transform .25s ease-out,box-shadow .4s ease,border-color .4s ease;will-change:transform}
+.caso:hover{box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 34px var(--acento-soft);border-color:var(--acento-soft)}
+.caso.con-foto{display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:center}
+.caso .foto{width:120px;height:120px;border-radius:50%;background:#141416 center/cover no-repeat;border:1px solid var(--linea);flex:none}
+.caso .quien{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);margin-bottom:.8rem;opacity:.85}
+.caso .cifra-in{font-family:var(--serif);font-weight:900;color:var(--acento);font-size:clamp(1.7rem,4vw,2.4rem);line-height:1;margin-top:.5rem}
+@media(max-width:560px){.caso.con-foto{grid-template-columns:1fr;text-align:center}.caso .foto{margin:0 auto}}
+
+/* mapa de alcance */
+.mapa{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.8rem;perspective:1200px}
+.area-card{border:1px solid var(--linea);border-radius:16px;padding:1.9rem 1.6rem;background:rgba(255,255,255,.012);text-align:left;transition:transform .25s ease-out,box-shadow .4s,border-color .4s;will-change:transform}
+.area-card:hover{box-shadow:0 22px 60px rgba(0,0,0,.55),0 0 30px var(--acento-soft);border-color:var(--acento-soft)}
+.area-card.full{border-color:var(--acento-soft);background:rgba(193,47,43,.05)}
+.area-card .ti{font-family:var(--serif);font-weight:700;font-size:1.25rem;color:var(--blanco)}
+.area-card .cob{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);font-weight:600;margin-top:.5rem}
+.area-card.full .cob{color:var(--acento)}
+.area-card p{font-size:.86rem;margin-top:.7rem}
+@media(max-width:560px){.mapa{grid-template-columns:1fr}}
+
+/* resumen de patas */
+.areas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.8rem;perspective:1200px}
+.pilar-card{border:1px solid var(--linea);border-radius:16px;padding:1.8rem 1.1rem;background:rgba(255,255,255,.012);text-align:center;transition:transform .25s ease-out,box-shadow .4s,border-color .4s;will-change:transform}
+.pilar-card:hover{box-shadow:0 22px 60px rgba(0,0,0,.55),0 0 30px var(--acento-soft);border-color:var(--acento-soft)}
+.pilar-card .logos-mini{display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap;align-items:center;min-height:30px;margin-bottom:.9rem}
+.pilar-card .logos-mini img{width:22px;height:22px;object-fit:contain}
+.pilar-card .logos-mini img.app{background:#fff;border-radius:5px;padding:2px}
+.pilar-card .logos-mini .est{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.pilar-card .pn{font-family:var(--serif);font-weight:900;color:var(--acento);font-size:1rem}
+.pilar-card h4{font-family:var(--serif);font-weight:700;font-size:1.08rem;margin-top:.3rem;color:var(--blanco)}
+.pilar-card p{font-size:.78rem;margin-top:.5rem}
+@media(max-width:720px){.areas-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:440px){.areas-grid{grid-template-columns:1fr}}
+
+.tu-pones{margin:2.8rem auto 0;border:1px solid var(--acento-soft);border-radius:14px;padding:1.5rem 1.7rem;background:rgba(193,47,43,.06);max-width:620px}
+.tu-pones .t{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acento);margin-bottom:.6rem}
+.tu-pones .d{color:var(--blanco);font-weight:500;font-size:clamp(1rem,1.6vw,1.15rem)}
+
+.portada{background:#000 url('_assets/portada-es.png') center/cover no-repeat;padding:0}
+.portada-tag{position:absolute;top:60.5%;left:50%;transform:translateX(-50%);font-family:var(--mono);font-weight:800;font-size:clamp(1.2rem,3.8vw,2.2rem);letter-spacing:-.01em;color:var(--blanco);z-index:2;opacity:.97;text-shadow:0 0 30px rgba(0,0,0,.6)}
+.scroll-hint{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);color:var(--gris);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;z-index:2}
+.scroll-hint::after{content:"↓";display:block;margin-top:.6rem;animation:bob 2s ease-in-out infinite;font-size:1.1rem}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(8px);opacity:.8}}
+
+.reveal{opacity:0;transform:translateY(30px);filter:blur(8px);transition:opacity 1.4s ease,transform 1.4s ease,filter 1.4s ease}
+.reveal.visible{opacity:1;transform:translateY(0);filter:blur(0)}
+</style>
+</head>
+<body>
+
+<div id="progreso"></div>
+
+<!-- PORTADA -->
+<section class="portada">
+  <div class="portada-tag">[alcance]</div>
+  <div class="scroll-hint">Desliza</div>
+</section>
+
+<!-- QUÉ ES -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">El servicio</p>
+    <h2>Hacemos crecer<br>tu consultoría.<br><em class="mark">De principio a fin.</em></h2>
+    <p class="lead">Un <strong>Done-For-You</strong> completo: nos encargamos de tu marketing, tus ventas y tu operación.</p>
+    <p>Tú solo te grabas y das el servicio. Nosotros montamos y sostenemos toda la maquinaria que hay detrás.</p>
+  </div>
+</section>
+
+<!-- AUTORIDAD / RAMIRO -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">De dónde salen estos sistemas</p>
+    <h2>No los inventamos<br>nosotros.</h2>
+    <p class="lead">Son los mismos sistemas con los que consultores como <strong>Ramiro Cubria</strong> han superado los</p>
+    <div class="caso con-foto" style="margin-top:2.2rem">
+      <div class="foto" style="background-image:url('_assets/ramiro.png')"></div>
+      <div>
+        <div class="quien">Mentor 1-a-1 · @ramiro.cubria</div>
+        <div class="cifra-in">+$600.000 / mes</div>
+        <p style="margin-top:.7rem">con su consultoría. Tomamos esa maquinaria probada y la instalamos en tu negocio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAS 4 PATAS -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">El mapa</p>
+    <h2>Todo negocio se apoya<br>en <em class="mark">cuatro patas.</em></h2>
+    <p class="lead">Si una falla, la mesa cojea. Estas son las cuatro:</p>
+    <ul class="indice">
+      <li><span class="num">01</span><span class="txt">Marketing<small>Atraer cada día a un lead más cualificado — orgánico y pago.</small></span></li>
+      <li><span class="num">02</span><span class="txt">Ventas<small>Convertir esas conversaciones en clientes.</small></span></li>
+      <li><span class="num">03</span><span class="txt">Producto<small>Un servicio que cumple y que la gente quiere renovar.</small></span></li>
+      <li><span class="num">04</span><span class="txt">Operaciones<small>El sistema que mide, automatiza y une todo lo demás.</small></span></li>
+    </ul>
+    <p class="nota">Nosotros sostenemos <em>tres patas enteras</em> — marketing, ventas y operaciones. La cuarta, el producto, la llevas tú: ahí entramos con estrategia.</p>
+  </div>
+</section>
+
+<!-- ============ PATA 01 · MARKETING — ORGÁNICO ============ -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker fase">Pata 01</p>
+    <h2>Marketing.</h2>
+    <p class="lead">El motor que atrae cada día a un lead <strong>cada vez más cualificado</strong>. Trabajamos las dos vías: orgánico y pago.</p>
+    <div class="sub">Contenido orgánico</div>
+    <div class="logos">
+      <div class="logo-tile"><img src="_assets/logos/instagram.svg" alt="Instagram"><span class="nm">Instagram</span></div>
+      <div class="logo-tile"><img src="_assets/logos/youtube.svg" alt="YouTube"><span class="nm">YouTube</span></div>
+    </div>
+    <ul class="puntos">
+      <li><strong>Ángulos de contenido:</strong> <span>los definimos y los afinamos sin parar para atraer mejores leads.</span></li>
+      <li><strong>Producción completa:</strong> <span>guionizamos, lo pasamos al editor, revisamos y subimos el contenido.</span></li>
+      <li><strong>Medición automatizada:</strong> <span>sabemos qué pieza y qué ángulo funcionan.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PATA 01 · MARKETING — TRÁFICO PAGO -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">Pata 01 · Marketing</p>
+    <h3 style="font-style:normal">Tráfico pago.</h3>
+    <p class="lead">Aceleramos con anuncios, siempre buscando la <strong>máxima rentabilidad</strong>.</p>
+    <div class="logos hero">
+      <div class="logo-tile"><img src="_assets/logos/meta.svg" alt="Meta Ads"><span class="nm">Meta Ads</span></div>
+    </div>
+    <ul class="puntos">
+      <li><strong>Gestión de campañas:</strong> <span>principalmente tráfico al perfil — los famosos <em class="mark">follow me ads</em>.</span></li>
+      <li><strong>Sin limitarnos a un formato:</strong> <span>según el estado del negocio sumamos retargeting, webinar y lo que haga falta.</span></li>
+      <li><strong>Siempre encima de los ángulos:</strong> <span>para que cada dólar traiga un lead más cualificado.</span></li>
+    </ul>
+    <p class="nota">Para escalar sin frenos montamos y contratamos el equipo que haga falta — pero la pata de marketing corre <em>entera</em> de nuestra cuenta.</p>
+  </div>
+</section>
+
+<!-- ============ PATA 02 · VENTAS ============ -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker fase">Pata 02</p>
+    <h2>Ventas.</h2>
+    <p class="lead">Convertimos las conversaciones en clientes con un equipo <strong>afilado y supervisado</strong>.</p>
+    <div class="logos">
+      <div class="logo-tile"><img class="app" src="_assets/logos/manychat.png" alt="ManyChat"><span class="nm">ManyChat</span></div>
+      <div class="logo-tile"><img src="_assets/logos/whatsapp.svg" alt="WhatsApp"><span class="nm">WhatsApp</span></div>
+      <div class="logo-tile"><img src="_assets/logos/googlemeet.svg" alt="Google Meet"><span class="nm">Google Meet</span></div>
+    </div>
+    <ul class="puntos">
+      <li><strong>Setters y closers:</strong> <span>entrenamos al equipo de ventas y lo supervisamos de cerca.</span></li>
+      <li><strong>Trazabilidad de ventas:</strong> <span>de qué ángulo se agendan, de qué ángulo compran, dónde se cae cada lead.</span></li>
+      <li><strong>Decisiones con datos:</strong> <span>vemos qué hace falta tocar para que el sistema crezca.</span></li>
+    </ul>
+    <p class="nota">Contratamos y formamos a los setters y closers que necesites para escalar. Esta pata la <em>sostenemos nosotros</em>.</p>
+  </div>
+</section>
+
+<!-- ============ PATA 03 · PRODUCTO ============ -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker fase">Pata 03</p>
+    <h2>Producto.</h2>
+    <p class="lead">La base de todo: un servicio que cumple y que la gente quiere <strong>renovar</strong>.</p>
+    <div class="logos">
+      <div class="logo-tile"><img class="app" src="_assets/logos/skool.png" alt="Skool"><span class="nm">Skool</span></div>
+      <div class="logo-tile"><img class="app" src="_assets/logos/whop.png" alt="Whop"><span class="nm">Whop</span></div>
+      <div class="logo-tile"><img src="_assets/logos/zoom.svg" alt="Zoom"><span class="nm">Zoom</span></div>
+      <div class="logo-tile"><img src="_assets/logos/whatsapp.svg" alt="WhatsApp"><span class="nm">WhatsApp</span></div>
+      <div class="logo-tile"><img src="_assets/logos/googlemeet.svg" alt="Google Meet"><span class="nm">Google Meet</span></div>
+    </div>
+    <ul class="puntos">
+      <li><strong>Auditamos el producto</strong> y detectamos los cuellos de botella: <span>dónde se pierde la gente, si la tasa de éxito es baja, qué falta para que cumpla.</span></li>
+      <li><strong>Subimos la tasa de éxito</strong> de tus alumnos <span>— más renovaciones y más upsells.</span></li>
+      <li><strong>Estructuramos la oferta para escalar:</strong> <span>ofertas con más sentido, cada vez más caras, que sostengan el crecimiento.</span></li>
+    </ul>
+    <p class="nota">Es la única pata que no operamos por ti: aquí entramos a nivel <em>estrategia</em>. El servicio lo sigues dando tú; nosotros lo ayudamos a estructurar.</p>
+  </div>
+</section>
+
+<!-- ============ PATA 04 · OPERACIONES ============ -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker fase">Pata 04</p>
+    <h2>Operaciones.</h2>
+    <p class="lead">El sistema que lo une todo: <strong>medido, automatizado y consultable</strong> en un solo sitio.</p>
+    <div class="logos">
+      <div class="logo-tile"><img src="_assets/logos/googlesheets.svg" alt="Google Sheets"><span class="nm">Google Sheets</span></div>
+      <div class="logo-tile"><img src="_assets/logos/airtable.svg" alt="Airtable"><span class="nm">Airtable</span></div>
+      <div class="logo-tile"><img src="_assets/logos/n8n.svg" alt="n8n"><span class="nm">n8n</span></div>
+      <div class="logo-tile"><img class="app" src="_assets/logos/manychat.png" alt="ManyChat"><span class="nm">ManyChat</span></div>
+      <div class="logo-tile"><img src="_assets/logos/discord.svg" alt="Discord"><span class="nm">Discord</span></div>
+      <div class="logo-tile"><img src="_assets/logos/calendly.svg" alt="Calendly"><span class="nm">Calendly</span></div>
+    </div>
+    <ul class="puntos">
+      <li><strong>Automatizaciones y CRM:</strong> <span>flujos en n8n y ManyChat, con un CRM en Airtable y Google Sheets como base.</span></li>
+      <li><strong>Un servidor en Discord:</strong> <span>donde consultas pagos, agendas, métricas y la trazabilidad de ventas.</span></li>
+      <li><strong>Detección de cuellos de botella:</strong> <span>decidimos qué tocar, en cada parte del negocio, para que crezca.</span></li>
+    </ul>
+    <p class="nota">Si el volumen lo pide, sumamos equipo de operaciones — pero la pata operativa la <em>llevamos nosotros</em>.</p>
+  </div>
+</section>
+
+<!-- ALCANCE / HASTA DÓNDE LLEGAMOS -->
+<section>
+  <div class="bloque ancho reveal">
+    <p class="kicker">Hasta dónde llegamos</p>
+    <h2>Sostenemos<br><em class="mark">tres de las cuatro.</em></h2>
+    <p class="lead">Con total honestidad: esto es lo que cubrimos y hasta dónde.</p>
+    <div class="mapa">
+      <div class="area-card full">
+        <div class="ti">Marketing</div>
+        <div class="cob">Lo hacemos nosotros</div>
+        <p>Contenido orgánico y tráfico pago, de principio a fin.</p>
+      </div>
+      <div class="area-card full">
+        <div class="ti">Ventas</div>
+        <div class="cob">Lo hacemos nosotros</div>
+        <p>Equipo, entrenamiento, supervisión y trazabilidad.</p>
+      </div>
+      <div class="area-card full">
+        <div class="ti">Operaciones</div>
+        <div class="cob">Lo hacemos nosotros</div>
+        <p>Métricas, automatizaciones, CRM y sistema en Discord.</p>
+      </div>
+      <div class="area-card">
+        <div class="ti">Producto</div>
+        <div class="cob">Estrategia</div>
+        <p>Lo estructuramos y le quitamos cuellos de botella. El servicio lo das tú.</p>
+      </div>
+    </div>
+    <p class="nota">En marketing, ventas y operaciones, para que el sistema sea escalable <em>contratamos el equipo que haga falta</em> — pero esas tres patas las llevamos nosotros de principio a fin.</p>
+  </div>
+</section>
+
+<!-- APALANCAMIENTO -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">100% apalancado</p>
+    <h2>Tú te grabas.<br>Nosotros, <em class="mark">el resto.</em></h2>
+    <p class="lead">No inviertes ni un segundo en que la maquinaria funcione. El marketing, las ventas y la operación corren de nuestra cuenta.</p>
+    <div class="tu-pones">
+      <div class="t">Lo único que pones tú</div>
+      <div class="d">Grabar el contenido · dar el servicio.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMEN -->
+<section>
+  <div class="bloque ancho reveal">
+    <p class="kicker">En resumen</p>
+    <h2>Cuatro patas,<br>una <em class="mark">maquinaria.</em></h2>
+    <div class="areas-grid">
+      <div class="pilar-card">
+        <div class="logos-mini"><img src="_assets/logos/instagram.svg" alt=""><img src="_assets/logos/youtube.svg" alt=""><img src="_assets/logos/meta.svg" alt=""></div>
+        <div class="pn">01</div><h4>Marketing</h4><p>Leads cada día, más cualificados.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="logos-mini"><img class="app" src="_assets/logos/manychat.png" alt=""><img src="_assets/logos/googlemeet.svg" alt=""></div>
+        <div class="pn">02</div><h4>Ventas</h4><p>Equipo afilado y supervisado.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="logos-mini"><img class="app" src="_assets/logos/skool.png" alt=""><img class="app" src="_assets/logos/whop.png" alt=""><img src="_assets/logos/zoom.svg" alt=""></div>
+        <div class="pn">03</div><h4>Producto</h4><p>Base sólida y escalable.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="logos-mini"><img src="_assets/logos/airtable.svg" alt=""><img src="_assets/logos/n8n.svg" alt=""><img src="_assets/logos/discord.svg" alt=""></div>
+        <div class="pn">04</div><h4>Operaciones</h4><p>Todo medido y en un sitio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section>
+  <div class="bloque reveal">
+    <p class="kicker">El resumen</p>
+    <h2>Marketing. Ventas.<br>Operaciones.</h2>
+    <p class="lead">Tu consultoría, <em class="mark">sistematizada</em> de la A a la Z —<br>con la maquinaria de quienes ya facturan +$600K/mes.</p>
+  </div>
+</section>
+
+<script>
+/* ===== INTERACCIÓN ===== */
+const prog=document.getElementById('progreso');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100+'%';});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== TILT 3D en cajas ===== */
+document.querySelectorAll('.area-card,.caso,.pilar-card').forEach(card=>{
+  card.addEventListener('mousemove', e=>{
+    const r=card.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`rotateY(${(px*10).toFixed(2)}deg) rotateX(${(-py*10).toFixed(2)}deg) translateZ(20px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{ card.style.transform=''; });
+});
+</script>
+</body>
+</html>
